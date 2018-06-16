@@ -2,7 +2,8 @@ The _.ini_ configuration file is not supported yet, you need to configure on the
 
 Ask me to update the _coins.json_ file if it's outdated.
 
-#### Pre-requisite: all of your daemons must be running. 
+#### Pre-requisite:
+all of your daemons must be running and synched.
 
 You can use _init_iguana.py_ script to import the private key to all daemons, then stop _iguana_, send your funds to yourself (Agama is usefuls for this), and then start _iguana_ again, run _init_iguana.py_ again.
 
