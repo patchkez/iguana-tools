@@ -21,4 +21,4 @@ You can test it now:
 ./recharge.py
 ```
 
-The installed cron.d file will take care of running the script every 10 minutes.
+The installed _cron.d_ file will take care of running the script every 10 minutes.
