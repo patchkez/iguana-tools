@@ -7,7 +7,7 @@ All of your daemons must be running and synched and using the same rpc user and 
 
 #### First time run:
 You can use _init_iguana.py_ script to import the private key to all daemons, then stop _iguana_, send your funds to yourself ([Agama](https://www.atomicexplorer.com/wallet/#/) is useful for this), then start _iguana_ again, and finally run `init_iguana.py` again.
-It might comply about utxos. That's because your also need to install and use [`recharge.py`](https://github.com/emmnx/iguana-tools/tree/master/recharge) to take care of utxos.
+It might comply about utxos. That's because you also need to install and use [`recharge.py`](https://github.com/emmnx/iguana-tools/tree/master/recharge) to take care of utxos.
 
 ### Usage:
 ```
