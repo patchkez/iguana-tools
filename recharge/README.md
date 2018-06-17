@@ -5,8 +5,8 @@ As root:
 apt install python3
 pip3 install requests
 cd /opt
-git clone https://github.com/Emmanux/kmdplatform.git
-cd kmdplatform/iguana/tools
+git clone https://github.com/emmnx/iguana-tools.git
+cd iguana-tools/recharge
 cp recharge.ini.example recharge.ini
 cp cron.recharge.iguana /etc/cron.d/rechargeiguana
 service cron reload
@@ -18,7 +18,7 @@ You can configure default parameters for all coins ("DEFAULT" label) or individu
 
 You can test it now:
 ```
-./recharge.py
+/opt/iguana-tools/recharge/recharge.py
 ```
 
 The installed _cron_ file will take care of running the script every 10 minutes.
