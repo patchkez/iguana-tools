@@ -1,15 +1,13 @@
-The _.ini_ configuration file is not supported yet, you need to configure on the script's code itself.
+The `.ini` configuration file is not supported yet, you need to configure on the script's code itself.
 
-Ask me to update the _coins.json_ file if it's outdated.
+Ask me to update the `coins.json` file if it's outdated.
 
 #### Pre-requisite:
-all of your daemons must be running and synched.
+All of your daemons must be running and synched and using the same rpc user and password.
 
-You can use _init_iguana.py_ script to import the private key to all daemons, then stop _iguana_, send your funds to yourself ([Agama](https://www.atomicexplorer.com/wallet/#/) is useful for this), and then start _iguana_ again, run _init_iguana.py_ again.
-
-It might comply about utxos. That's because your also need to install and use _recharge.py_ to take care of utxos.
-
-
+#### First time run:
+You can use _init_iguana.py_ script to import the private key to all daemons, then stop _iguana_, send your funds to yourself ([Agama](https://www.atomicexplorer.com/wallet/#/) is useful for this), then start _iguana_ again, and finally run `init_iguana.py` again.
+It might comply about utxos. That's because your also need to install and use `recharge.py` to take care of utxos.
 
 ### Usage:
 ```
