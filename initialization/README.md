@@ -26,4 +26,4 @@ _Iguana_ might comply about utxos. That's because you also need to install and u
 ./init_iguana.py <your_passphrase>
 ```
 
-_Note: Ask me to update the `coins.json` file if it's outdated._
+_Note: Ask me to update `coins.json` if it's outdated._
