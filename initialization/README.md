@@ -9,7 +9,7 @@ All of your daemons must be running and synched and using the same rpc user and 
 The `.ini` configuration file is not supported yet, you need to configure on the script's code itself.
 
 #### First time run:
-You can configure `init_iguana.py` to rescan the blockchain after importing private keys. But it takes a lot of time, specially for KMD and BTC. It's disabled by default in `init_iguana.py`.
+You can configure `init_iguana.py` to rescan the blockchain after importing private keys. But it takes a lot of time, specially for KMD and BTC. That's the reason why it's disabled by default in `init_iguana.py`.
 
 A more convenient method is: 
 1. Use `init_iguana.py` script to import the private key to all daemons,
