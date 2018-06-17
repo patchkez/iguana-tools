@@ -12,7 +12,7 @@ cp cron.recharge.iguana /etc/cron.d/rechargeiguana
 service cron reload
 vim recharge.ini
 ```
-Change your rpcuser and rpcpassword and save the file.
+Change your _rpcuser_ and _rpcpassword_ and save the file.
 
 You can configure default parameters for all coins ("DEFAULT" label) or individually, under each coin label.
 
@@ -21,4 +21,4 @@ You can test it now:
 ./recharge.py
 ```
 
-The installed _cron.d_ file will take care of running the script every 10 minutes.
+The installed _cron_ file will take care of running the script every 10 minutes.
