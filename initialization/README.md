@@ -2,8 +2,8 @@
 All of your daemons must be running and synched and using the same rpc user and password.
 
 #### Dependencies:
-`python3`
-`requests` library (`pip3 install requests`)
+* `python3`
+* `requests` library (`pip3 install requests`)
 
 #### Configuration:
 The `.ini` configuration file is not supported yet, you need to configure on the script's code itself.
