@@ -15,7 +15,7 @@ A more convenient method is:
 5. and finally run `init_iguana.py` again for normal start.
 
 #### Recharge:
-It might comply about utxos. That's because you also need to install and use [`recharge.py`](https://github.com/emmnx/iguana-tools/tree/master/recharge) to take care of utxos.
+_Iguana_ might comply about utxos. That's because you also need to install and use [`recharge.py`](https://github.com/emmnx/iguana-tools/tree/master/recharge) to take care of utxos.
 
 ### Usage:
 ```
