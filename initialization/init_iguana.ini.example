@@ -1,18 +1,29 @@
+[DEFAULT]
+rescan_btc = no
+rescan_kmd = no
+rescan_ac = no
 
-iguana_ip = '127.0.0.1'
-iguana_port = '7776'
+iguana_ip = 127.0.0.1
+iguana_port = 7776
 
-bitcoind_ip = '127.0.0.1'
-bitcoind_port = '8332'
-bitcoind_rpcuser = 'user1'
-bitcoind_rpcpassword = 'password1'
+bitcoind_ip = 127.0.0.1
+bitcoind_port = 8332
 
-komodod_ip = '127.0.0.1'
-komodod_port = '7771'
-komodod_rpcuser = 'user1'
-komodod_rpcpassword = 'password1'
+komodod_ip = 127.0.0.1
+komodod_port = 7771
 
-assetchain_ip = '127.0.0.1'
-assetchain_rpcuser = 'user2'
-assetchain_rpcpassword = 'password2'
+assetchain_ip = 127.0.0.1
+
+
+[PROD]
+notaries = 78.47.196.146, 82.202.193.98, 54.95.68.31,142.54.164.114,45.7.229.33,103.6.12.111,155.254.17.21,138.121.203.210,209.58.169.65
+
+bitcoind_rpcuser = user1
+bitcoind_rpcpassword = password1
+
+komodod_rpcuser = user1
+komodod_rpcpassword = password1
+
+assetchain_rpcuser = user2
+assetchain_rpcpassword = password2
 

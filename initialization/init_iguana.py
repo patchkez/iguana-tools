@@ -4,45 +4,51 @@ import json
 import pprint
 import sys
 import os
-from coins_json import coins
+import configparser
+import csv
 
-# == config area ==
 
-iguana_ip = '127.0.0.1'
-iguana_port = '7776'
+# read configuration file
+ENVIRON = 'PROD'
+config = configparser.ConfigParser()
+config.read('init_iguana.ini')
 
-bitcoind_ip = '127.0.0.1'
-bitcoind_port = '8332'
-bitcoind_rpcuser = 'user1'
-bitcoind_rpcpassword = 'password1'
+# configure pretty printer
+pp = pprint.PrettyPrinter(width=41, compact=True)
 
-komodod_ip = '127.0.0.1'
-komodod_port = '7771'
-komodod_rpcuser = 'user1'
-komodod_rpcpassword = 'password1'
+# get list of notaries
+notaries = []
+for n in  config[ENVIRON]['notaries'].split(','):
+    n = n.strip()
+    notaries.append(n)
 
-assetchain_ip = '127.0.0.1'
-assetchain_rpcuser = 'user2'
-assetchain_rpcpassword = 'password2'
+# what shall we rescan
+rescan_ac = config[ENVIRON].getboolean('rescan_ac')
+rescan_btc = config[ENVIRON].getboolean('rescan_btc')
+rescan_kmd = config[ENVIRON].getboolean('rescan_ac')
 
-# set to true if you want to rescan blockchain after privkey import
-rescan_btc = False
-rescan_kmd = False
-rescan_ac = False
+# get connection options
+conn = {}
+connection_options = [
+    'iguana_ip',
+    'iguana_port',
+    'bitcoind_ip',
+    'bitcoind_port',
+    'bitcoind_rpcuser',
+    'bitcoind_rpcpassword',
+    'komodod_ip',
+    'komodod_port',
+    'komodod_rpcuser',
+    'komodod_rpcpassword',
+    'assetchain_ip',
+    'assetchain_rpcuser',
+    'assetchain_rpcpassword']
+for i in connection_options:
+    conn[i] = config[ENVIRON][i]
 
-notaries = [
-    "78.47.196.146",
-    "82.202.193.98",
-    "54.95.68.31",
-    "142.54.164.114",
-    "45.7.229.33",
-    "103.6.12.111",
-    "155.254.17.21",
-    "138.121.203.210",
-    "209.58.169.65"
-]
-
-# == end of config area ==
+# load coin definition file
+with open('coins.json') as file:
+    coins = json.load(file)
 
 
 # define function that posts json data to iguana
@@ -53,9 +59,6 @@ def post_rpc(url, payload, auth=None):
     except Exception as e:
         raise Exception("Couldn't connect to " + url + ": ", e)
 
-
-# configure pretty printer
-pp = pprint.PrettyPrinter(width=41, compact=True)
 
 # read passphrase from environment variable
 try:
@@ -69,20 +72,35 @@ except:
     sys.exit(0)
 
 # define url's
-iguana_url = 'http://' + iguana_ip + ':' + iguana_port
+iguana_url = 'http://' + conn['iguana_ip'] + ':' + conn['iguana_port']
 komodod_url = (
     'http://' +
-    komodod_ip + ':' +
-    komodod_port)
+    conn['komodod_ip'] + ':' +
+    conn['komodod_port'])
 bitcoind_url = (
     'http://' +
-    bitcoind_ip + ':' +
-    bitcoind_port)
+    conn['bitcoind_ip'] + ':' +
+    conn['bitcoind_port'])
 
 # define credentials
-bitcoind_auth = (bitcoind_rpcuser, bitcoind_rpcpassword)
-bitcoind_userpass = bitcoind_rpcuser + ':' + bitcoind_rpcpassword
-komodod_auth = (komodod_rpcuser, komodod_rpcpassword)
+bitcoind_auth = (
+    conn['bitcoind_rpcuser'],
+    conn['bitcoind_rpcpassword'])
+bitcoind_userpass = (
+    conn['bitcoind_rpcuser'] + ':' +
+    conn['bitcoind_rpcpassword'])
+komodod_auth = (
+    conn['komodod_rpcuser'],
+    conn['komodod_rpcpassword'])
+komodod_userpass = (
+    conn['komodod_rpcuser'] + ':' +
+    conn['komodod_rpcpassword'])
+assetchain_auth = (
+    conn['assetchain_rpcuser'],
+    conn['assetchain_rpcpassword'])
+assetchain_userpass = (
+    conn['assetchain_rpcuser'] + ':' +
+    conn['assetchain_rpcpassword'])
 
 # add my ip
 checkip_response = requests.get('http://checkip.amazonaws.com')
@@ -267,9 +285,8 @@ def ac_importprivkey(symbol, url):
         "method": "importprivkey",
         "params": [BTCDwif, "", rescan_ac]
     }
-    ac_auth = (assetchain_rpcuser, assetchain_rpcpassword)
     try:
-        response_importprivkey = post_rpc(url, payload, ac_auth)
+        response_importprivkey = post_rpc(url, payload, assetchain_auth)
         return(response_importprivkey)
     except Exception as e:
         raise Exception(e)
@@ -278,7 +295,6 @@ def ac_importprivkey(symbol, url):
 # addcoin method, iguana
 def addcoin(payload):
     symbol = payload['newcoin']
-    payload['userpass'] = userpass
     response_addcoin = post_rpc(iguana_url, payload)
     print('== response_addcoin ' + symbol + ' ==')
     pp.pprint(response_addcoin)
@@ -301,11 +317,7 @@ def dpow(symbol):
 for index, coin in enumerate(coins):
     symbol = coin['newcoin']
     if symbol == 'KMD':
-        userpass = (
-            komodod_rpcuser +
-            ':' +
-            komodod_rpcpassword)
-        coin['userpass'] = userpass
+        coin['userpass'] = komodod_userpass
         addcoin(coin)
         dpow(symbol)
         del coins[index]
@@ -318,7 +330,7 @@ for coin in coins:
     symbol = coin['newcoin']
     url = (
         'http://' +
-        assetchain_ip +
+        conn['assetchain_ip'] +
         ':' +
         str(coin['rpc']))
     print('== response_importprivkey ' + symbol + ' ==')
@@ -332,11 +344,7 @@ for coin in coins:
         print(e)
         continue
     # addcoin and dpow, iguana
-    userpass = (
-        assetchain_rpcuser +
-        ':' +
-        assetchain_rpcpassword)
-    coin['userpass'] = userpass
+    coin['userpass'] = assetchain_userpass
     addcoin(coin)
     dpow(symbol)
 
