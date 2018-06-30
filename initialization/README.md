@@ -1,5 +1,5 @@
 #### Pre-requisite:
-All of your daemons must be running and synched and using the same rpc user and password.
+All of your assetchain daemons must be running and synched and using the same rpc user and password.
 
 #### Dependencies:
 * `python3`
@@ -7,7 +7,6 @@ All of your daemons must be running and synched and using the same rpc user and 
 
 #### Configuration:
 Configure the `init_iguana.ini` configuration file. You can use `init_iguana.ini.example` as reference.
-
 Parameters under the section "DEFAULT" apply to all sections, unless they're specified under those sections.
 
 #### First time run:
