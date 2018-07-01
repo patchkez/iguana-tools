@@ -1,4 +1,4 @@
-#### Pre-requisite:
+#### Pre-requisites:
 All of your assetchain daemons must be running and synched and using the same rpc user and password.
 
 #### Dependencies:
