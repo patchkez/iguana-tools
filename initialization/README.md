@@ -19,12 +19,12 @@ A more convenient method is:
 4. then start _iguana_ again,
 5. and finally run `init_iguana.py` again for normal start.
 
-#### Recharge:
-_Iguana_ might comply about utxos. That's because you also need to install and use [`recharge.py`](https://github.com/emmnx/iguana-tools/tree/master/recharge) to take care of utxos.
-
 ### Usage:
 ```
 ./init_iguana.py <your_passphrase>
 ```
+
+#### Recharge:
+_Iguana_ might comply about utxos. That's because you also need to install and use [`recharge.py`](https://github.com/emmnx/iguana-tools/tree/master/recharge) to take care of utxos.
 
 _Note: Ask me to update `coins.json` if it's outdated._
