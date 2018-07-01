@@ -7,7 +7,7 @@ All of your assetchain daemons must be running and synched and using the same rp
 
 #### Configuration:
 Configure the `init_iguana.ini` configuration file. You can use `init_iguana.ini.example` as reference.
-Parameters under the section "DEFAULT" apply to all sections, unless they're specified under those sections.
+Parameters defined under the section "DEFAULT" are applied to all sections, unless they're specified under those sections.
 
 #### First time run:
 You can configure `init_iguana.py` to rescan the blockchain after importing private keys. But it takes a lot of time, specially for KMD and BTC. That's the reason why it's disabled by default in `init_iguana.ini.example`.
