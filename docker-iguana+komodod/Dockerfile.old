@@ -1,8 +1,11 @@
-FROM ubuntu:16.04
-LABEL version="0.0603a"
+FROM kmdplatform/komodod
+LABEL version="0.0818a"
 
 # prepare system to build things
-COPY *.patch /
+#COPY *.patch /
+
+USER root
+WORKDIR /
 
 ENV BUILD_PACKAGES="git build-essential cmake libssl-dev clang libcurl4-openssl-dev"
 
@@ -21,8 +24,9 @@ RUN git clone https://github.com/nanomsg/nanomsg && \
 # get iguana code
 RUN git clone https://github.com/jl777/SuperNET && \
     cd SuperNET/iguana && \
-    git checkout dev && \
-    git apply -v /*.patch
+    git checkout dev 
+    #&& \
+    #git apply -v /*.patch
 
 # build secp256k1
 RUN cd SuperNET/iguana/secp256k1 && \
@@ -53,7 +57,7 @@ RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
     rm -rf /var/lib/apt/lists/* 
 
 # initialize things
-RUN useradd -u 3003 -m komodo
+#RUN useradd -u 3003 -m komodo
 ENV PATH="/SuperNET/iguana:${PATH}"
 USER komodo
 WORKDIR /home/komodo
