@@ -90,7 +90,7 @@ def main():
     path = os.path.dirname(sys.argv[0])
     if len(path) > 1:
         path += '/'
-    path += 'recharge.ini'
+    path += '/recharge.ini'
     print("Reading configuration from " + path)
     config.read(path)
 
@@ -175,4 +175,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
