@@ -12,9 +12,11 @@ cp cron.recharge.iguana /etc/cron.d/rechargeiguana
 service cron reload
 vim recharge.ini
 ```
-Change your `rpcuser` and `rpcpassword` and save the file. Or, you can specify the directory where all the assetchains read their configurations from, so that the script will take those values from there (generally `/home/<user>/.komodo`)
+You can configure default parameters for all coins (under the "DEFAULT" label) or individually (under each coin label.)
 
-You can configure default parameters for all coins ("DEFAULT" label) or individually, under each coin label.
+Specify `rpcuser` and `rpcpassword` for each (or all) coin(s). 
+
+For assetchains, you can instead specify the directory where all the assetchains read their configurations from, so that the script will take those values from there (generally `/home/<user>/.komodo`, and yes, _recharge.py_ will iterate through the coin folders.)
 
 You can test it now:
 ```
