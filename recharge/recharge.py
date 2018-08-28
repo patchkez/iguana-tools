@@ -5,7 +5,7 @@ import sys
 import os
 import configparser
 import datetime
-
+import re
 
 # define function that posts json data to daemon
 def post_rpc(url, payload, **kwargs):
