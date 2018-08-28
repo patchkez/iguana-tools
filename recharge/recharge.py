@@ -100,8 +100,23 @@ def main():
             continue
         print(coin)
         # define daemon url
-        rpcuser = config[coin]['rpcuser']
-        rpcpassword = config[coin]['rpcpassword'].encode('utf-8')
+        try:
+            # read from assetchains directory if defined
+            ac_dir = config[coin]['assetchains_dir']
+            coin_config_file = str(ac_dir + '/' + coin + '/' + coin + '.conf')
+            print("Reading config file for credentials:", coin_config_file)
+            with open(coin_config_file, 'r') as f:
+                for line in f:
+                    if re.search('rpcuser', line):
+                        l = line.rstrip()
+                        rpcuser = l.replace('rpcuser=', '')
+                    elif re.search('rpcpassword', line):
+                        l = line.rstrip()
+                        rpcpassword = l.replace('rpcpassword=', '')
+        except:
+            # no assetchains directory defined, read from our recharge.ini file
+            rpcuser = config[coin]['rpcuser']
+            rpcpassword = config[coin]['rpcpassword'].encode('utf-8')
         rpcip = config[coin]['rpcip']
         rpcport = config[coin]['rpcport']
         rpcurl = 'http://' + rpcip + ':' + rpcport
