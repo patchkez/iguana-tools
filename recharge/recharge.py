@@ -110,11 +110,10 @@ def main():
             print("Reading config file for credentials:", coin_config_file)
             with open(coin_config_file, 'r') as f:
                 for line in f:
-                    if re.search('rpcuser', line):
-                        l = line.rstrip()
+                    l = line.rstrip()
+                    if re.search('rpcuser', l):
                         rpcuser = l.replace('rpcuser=', '')
-                    elif re.search('rpcpassword', line):
-                        l = line.rstrip()
+                    elif re.search('rpcpassword', l):
                         rpcpassword = l.replace('rpcpassword=', '')
         except:
             # no assetchains directory defined, read from our recharge.ini file
