@@ -7,6 +7,7 @@ import configparser
 import datetime
 import re
 
+
 # define function that posts json data to daemon
 def post_rpc(url, payload, **kwargs):
     try:
@@ -60,13 +61,15 @@ def consolidate(url, rpcauth):
     print("I'll try to send my whole balance to myself.")
     print("Checking if there is no pending transactions...")
     listtransactions_payload = {"method": "listtransactions"}
-    response_listtransactions = post_rpc(url, listtransactions_payload, auth=rpcauth)
+    response_listtransactions = post_rpc(
+        url, listtransactions_payload, auth=rpcauth)
     # checking for pending transactions
     for tx in response_listtransactions['result']:
         if tx['category'] == 'send' and tx['confirmations'] == 0:
-             raise Exception("Pending transaction detected. Cannot continue.")
+            raise Exception("Pending transaction detected. Cannot continue.")
     listaddressgroupings_payload = {"method": "listaddressgroupings"}
-    response_listaddressgroupings = post_rpc(url, listaddressgroupings_payload, auth=rpcauth)
+    response_listaddressgroupings = post_rpc(
+        url, listaddressgroupings_payload, auth=rpcauth)
     my_address = response_listaddressgroupings['result'][0][0][0]
     my_balance = response_listaddressgroupings['result'][0][0][1]
     print('My address: ' + my_address)
