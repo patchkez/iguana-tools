@@ -101,14 +101,22 @@ def main():
     for i, coin in enumerate(config):
         if coin == 'DEFAULT':
             continue
+        rpcuser = ''
+        rpcpassword = ''
         print(coin)
         # define daemon url
         try:
             # read from assetchains directory if defined
             ac_dir = config[coin]['assetchains_dir']
-            coin_config_file = str(ac_dir + '/' + coin + '/' + coin + '.conf')
-            print("Reading config file for credentials:", coin_config_file)
+            if coin == 'KMD':
+                coin_config_file = str(ac_dir + '/komodo.conf')
+            elif coin == 'BTC':
+                coin_config_file = str(ac_dir + '/bitcoin.conf')
+            else:
+                coin_config_file = str(
+                    ac_dir + '/' + coin + '/' + coin + '.conf')
             with open(coin_config_file, 'r') as f:
+                print("Reading config file for credentials:", coin_config_file)
                 for line in f:
                     l = line.rstrip()
                     if re.search('rpcuser', l):
