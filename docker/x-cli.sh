@@ -44,7 +44,5 @@ fi
 
 data=$(printf '{"method": "%s", "params": [%s]}' $METHOD "$params")
 
-curl -s --url  $rpcuser:$rpcpassword@$rpcaddress:$rpcport --data "$data"
-
-exit
+curl -s -N --url  $rpcuser:$rpcpassword@$rpcaddress:$rpcport --data "$data" | jq -M '.result'
 
