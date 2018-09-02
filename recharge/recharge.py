@@ -101,8 +101,6 @@ def main():
     for i, coin in enumerate(config):
         if coin == 'DEFAULT':
             continue
-        rpcuser = ''
-        rpcpassword = ''
         print(coin)
         # define daemon url
         try:
