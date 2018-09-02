@@ -137,7 +137,7 @@ def main():
         try:
             n_relevant_utxos = count_unspent(rpcurl, rpcauth, utxo_size)
         except:
-            print("Couldn't count utxo's.\n")
+            print("ERROR: Couldn't count utxo's.\n")
             continue
         # define number of relevant utxo's threshold and target
         try:
