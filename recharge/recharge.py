@@ -106,27 +106,33 @@ def main():
         print(coin)
         # define daemon url
         try:
-            # read from assetchains directory if defined
-            ac_dir = config[coin]['assetchains_dir']
-            if coin == 'KMD':
-                coin_config_file = str(ac_dir + '/komodo.conf')
-            elif coin == 'BTC':
-                coin_config_file = str(ac_dir + '/bitcoin.conf')
-            else:
-                coin_config_file = str(
-                    ac_dir + '/' + coin + '/' + coin + '.conf')
-            with open(coin_config_file, 'r') as f:
-                print("Reading config file for credentials:", coin_config_file)
-                for line in f:
-                    l = line.rstrip()
-                    if re.search('rpcuser', l):
-                        rpcuser = l.replace('rpcuser=', '')
-                    elif re.search('rpcpassword', l):
-                        rpcpassword = l.replace('rpcpassword=', '')
-        except:
-            # no assetchains directory defined, read from our recharge.ini file
-            rpcuser = config[coin]['rpcuser']
-            rpcpassword = config[coin]['rpcpassword'].encode('utf-8')
+            # read credentials from our recharge.ini file if defined
+            try:
+                rpcuser = config[coin]['rpcuser']
+                rpcpassword = config[coin]['rpcpassword'].encode('utf-8')
+            # default to reading from common assetchains directory
+            except:
+                ac_dir = config[coin]['assetchains_dir']
+                if coin == 'KMD':
+                    coin_config_file = str(ac_dir + '/komodo.conf')
+                elif coin == 'BTC':
+                    coin_config_file = str(ac_dir + '/bitcoin.conf')
+                else:
+                    coin_config_file = str(
+                        ac_dir + '/' + coin + '/' + coin + '.conf')
+                with open(coin_config_file, 'r') as f:
+                    print(
+                        "Reading config file for credentials:",
+                        coin_config_file)
+                    for line in f:
+                        l = line.rstrip()
+                        if re.search('rpcuser', l):
+                            rpcuser = l.replace('rpcuser=', '')
+                        elif re.search('rpcpassword', l):
+                            rpcpassword = l.replace('rpcpassword=', '')
+        except Exception as e:
+            print("ERROR: couldn't get rpc credentials!", e)
+            continue
         rpcip = config[coin]['rpcip']
         rpcport = config[coin]['rpcport']
         rpcurl = 'http://' + rpcip + ':' + rpcport
@@ -137,7 +143,7 @@ def main():
         try:
             n_relevant_utxos = count_unspent(rpcurl, rpcauth, utxo_size)
         except:
-            print("ERROR: Couldn't count utxo's.\n")
+            print("ERROR: Couldn't count utxo's!\n")
             continue
         # define number of relevant utxo's threshold and target
         try:
