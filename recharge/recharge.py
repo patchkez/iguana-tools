@@ -86,7 +86,7 @@ def consolidate(url, rpcauth):
 # this script
 def main():
     now = str(datetime.datetime.utcnow())
-    print("Starting at " + now + ' (UTC)')
+    print("\nStarting at " + now + ' (UTC)')
 
     # read configuration file
     config = configparser.ConfigParser()
@@ -94,7 +94,7 @@ def main():
     if len(path) > 1:
         path += '/'
     path += '/recharge.ini'
-    print("Reading configuration from " + path)
+    print("Reading configuration from " + path + "\n")
     config.read(path)
 
     # iterate through list of coins
