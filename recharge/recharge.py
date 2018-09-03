@@ -115,6 +115,8 @@ def main():
                     coin_config_file = str(ac_dir + '/komodo.conf')
                 elif coin == 'BTC':
                     coin_config_file = str(ac_dir + '/bitcoin.conf')
+                elif coin == 'GAME':
+                    coin_config_file = str(ac_dir + '/gamecredits.conf')
                 else:
                     coin_config_file = str(
                         ac_dir + '/' + coin + '/' + coin + '.conf')
