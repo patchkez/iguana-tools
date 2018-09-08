@@ -83,6 +83,54 @@ def consolidate(url, rpcauth):
     print('Transaction id: ' + result)
 
 
+# get rpcurl and rpcauth
+def get_rpc(coin):
+    # define config file path
+    try:
+        ac_dir = config[coin]['assetchains_dir']
+        if coin == 'KMD':
+            coin_config_file = str(ac_dir + '/komodo.conf')
+        elif coin == 'BTC':
+            coin_config_file = str(ac_dir + '/bitcoin.conf')
+        elif coin == 'GAME':
+            coin_config_file = str(ac_dir + '/gamecredits.conf')
+        else:
+            coin_config_file = str(
+            ac_dir + '/' + coin + '/' + coin + '.conf')
+    except:
+        pass
+    # read credentials from our recharge.ini file if defined
+    try:
+        rpcuser = config[coin]['rpcuser']
+        rpcpassword = config[coin]['rpcpassword'].encode('utf-8')
+    # fallback to reading from common assetchains directory
+    except:
+        with open(coin_config_file, 'r') as f:
+            print("Reading config file for credentials:", coin_config_file)
+            for line in f:
+                l = line.rstrip()
+                if re.search('rpcuser', l):
+                    rpcuser = l.replace('rpcuser=', '')
+                elif re.search('rpcpassword', l):
+                    rpcpassword = l.replace('rpcpassword=', '')
+    try:
+        rpcport = config[coin]['rpcport']
+    except:
+        with open(coin_config_file, 'r') as f:
+            print("Reading config file for credentials:", coin_config_file)
+            for line in f:
+                l = line.rstrip()
+                if re.search('rpcport', l):
+                    rpcuser = l.replace('rpcport=', '')
+    rpcip = config[coin]['rpcip']
+    rpcurl = 'http://' + rpcip + ':' + rpcport
+    rpcauth = (rpcuser, rpcpassword)
+    output = [rpcurl, rpcauth]
+    print(output)
+    sys.exit()
+    return(output)
+
+
 # this script
 def main():
     now = str(datetime.datetime.utcnow())
@@ -102,41 +150,8 @@ def main():
         if coin == 'DEFAULT':
             continue
         print(coin)
-        # define daemon url
-        try:
-            # read credentials from our recharge.ini file if defined
-            try:
-                rpcuser = config[coin]['rpcuser']
-                rpcpassword = config[coin]['rpcpassword'].encode('utf-8')
-            # default to reading from common assetchains directory
-            except:
-                ac_dir = config[coin]['assetchains_dir']
-                if coin == 'KMD':
-                    coin_config_file = str(ac_dir + '/komodo.conf')
-                elif coin == 'BTC':
-                    coin_config_file = str(ac_dir + '/bitcoin.conf')
-                elif coin == 'GAME':
-                    coin_config_file = str(ac_dir + '/gamecredits.conf')
-                else:
-                    coin_config_file = str(
-                        ac_dir + '/' + coin + '/' + coin + '.conf')
-                with open(coin_config_file, 'r') as f:
-                    print(
-                        "Reading config file for credentials:",
-                        coin_config_file)
-                    for line in f:
-                        l = line.rstrip()
-                        if re.search('rpcuser', l):
-                            rpcuser = l.replace('rpcuser=', '')
-                        elif re.search('rpcpassword', l):
-                            rpcpassword = l.replace('rpcpassword=', '')
-        except Exception as e:
-            print("ERROR: couldn't get rpc credentials!", e)
-            continue
-        rpcip = config[coin]['rpcip']
-        rpcport = config[coin]['rpcport']
-        rpcurl = 'http://' + rpcip + ':' + rpcport
-        rpcauth = (rpcuser, rpcpassword)
+
+
         # define utxo size to filter by
         utxo_size = config[coin]['utxo_size']
         # ask how many utxo's
