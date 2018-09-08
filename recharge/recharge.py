@@ -152,9 +152,12 @@ def main():
         if coin == 'DEFAULT':
             continue
         print(coin)
+
+        # define rpc parameters
         rpc_params = get_coin_rpc(coin, config)
         rpcurl = rpc_params[0]
         rpcauth = rpc_params[1]
+
         # define utxo size to filter by
         utxo_size = config[coin]['utxo_size']
         # ask how many utxo's
