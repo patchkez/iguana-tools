@@ -1,18 +1,13 @@
 [DEFAULT]
 rpcip = 127.0.0.1
-utxo_size = 0.0005
-threshold = 50
-target = 100
-assetchains_dir = /home/komodo/.komodo
+utxo_size = 0.0001
+threshold = 10
+target = 20
+assetchains_dir = /home/user/.komodo
 
 [KMD]
 rpcport = 7771
-rpcuser = myuser
-rpcpassword = mypassword
 
-[BEER]
-rpcport = 8923
+[STAKEDG0]
 
-[PIZZA]
-rpcport = 11608
-
+[STAKEDG1]
