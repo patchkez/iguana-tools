@@ -113,8 +113,8 @@ def get_coin_rpc(coin, config):
                     rpcuser = l.replace('rpcuser=', '')
                 elif re.search('rpcpassword', l):
                     rpcpassword = l.replace('rpcpassword=', '')
+    # define rpc url
     rpcip = config[coin]['rpcip']
-    rpcport = ''
     # read rpc port from our recharge.ini file, if defined
     try:
         rpcport = config[coin]['rpcport']
@@ -125,7 +125,7 @@ def get_coin_rpc(coin, config):
             for line in f:
                 l = line.rstrip()
                 if re.search('rpcport', l):
-                    rpcuser = l.replace('rpcport=', '')
+                    rpcport = l.replace('rpcport=', '')
     finally:
         rpcurl = 'http://' + rpcip + ':' + rpcport
     rpcauth = (rpcuser, rpcpassword)
