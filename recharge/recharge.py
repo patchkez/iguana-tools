@@ -127,7 +127,6 @@ def get_rpc(coin):
     rpcauth = (rpcuser, rpcpassword)
     output = [rpcurl, rpcauth]
     print(output)
-    sys.exit()
     return(output)
 
 
@@ -150,8 +149,9 @@ def main():
         if coin == 'DEFAULT':
             continue
         print(coin)
-
-
+        rpc_params = get_rpc(coin)
+        rpcurl = rpc_params[0]
+        rpcauth = rpc_params[1]
         # define utxo size to filter by
         utxo_size = config[coin]['utxo_size']
         # ask how many utxo's
