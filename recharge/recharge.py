@@ -114,6 +114,7 @@ def get_coin_rpc(coin, config):
                 elif re.search('rpcpassword', l):
                     rpcpassword = l.replace('rpcpassword=', '')
     rpcip = config[coin]['rpcip']
+    rpcport = ''
     # read rpc port from our recharge.ini file, if defined
     try:
         rpcport = config[coin]['rpcport']
