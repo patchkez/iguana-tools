@@ -84,7 +84,7 @@ def consolidate(url, rpcauth):
 
 
 # get rpcurl and rpcauth
-def get_rpc(coin):
+def get_coin_rpc(coin, config):
     # define config file path
     try:
         ac_dir = config[coin]['assetchains_dir']
@@ -148,8 +148,8 @@ def main():
     for i, coin in enumerate(config):
         if coin == 'DEFAULT':
             continue
-        print(coin)
-        rpc_params = get_rpc(coin)
+        print(coin, config)
+        rpc_params = get_coin_rpc(coin)
         rpcurl = rpc_params[0]
         rpcauth = rpc_params[1]
         # define utxo size to filter by
