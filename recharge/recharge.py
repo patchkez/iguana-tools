@@ -130,7 +130,6 @@ def get_coin_rpc(coin, config):
         rpcurl = 'http://' + rpcip + ':' + rpcport
     rpcauth = (rpcuser, rpcpassword)
     output = [rpcurl, rpcauth]
-    print(output)
     return(output)
 
 
