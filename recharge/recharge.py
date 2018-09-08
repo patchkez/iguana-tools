@@ -99,11 +99,11 @@ def get_coin_rpc(coin, config):
             ac_dir + '/' + coin + '/' + coin + '.conf')
     except:
         pass
-    # read credentials from our recharge.ini file if defined
+    # read credentials from our recharge.ini file, if defined
     try:
         rpcuser = config[coin]['rpcuser']
         rpcpassword = config[coin]['rpcpassword'].encode('utf-8')
-    # fallback to reading from common assetchains directory
+    # fallback to reading from configuration directory
     except:
         with open(coin_config_file, 'r') as f:
             print("Reading config file for credentials:", coin_config_file)
@@ -113,17 +113,20 @@ def get_coin_rpc(coin, config):
                     rpcuser = l.replace('rpcuser=', '')
                 elif re.search('rpcpassword', l):
                     rpcpassword = l.replace('rpcpassword=', '')
+    rpcip = config[coin]['rpcip']
+    # read rpc port from our recharge.ini file, if defined
     try:
         rpcport = config[coin]['rpcport']
+    # fallback to reading from configuration directory
     except:
         with open(coin_config_file, 'r') as f:
-            print("Reading config file for credentials:", coin_config_file)
+            print("Reading config file for rpc port:", coin_config_file)
             for line in f:
                 l = line.rstrip()
                 if re.search('rpcport', l):
                     rpcuser = l.replace('rpcport=', '')
-    rpcip = config[coin]['rpcip']
-    rpcurl = 'http://' + rpcip + ':' + rpcport
+    finally:
+        rpcurl = 'http://' + rpcip + ':' + rpcport
     rpcauth = (rpcuser, rpcpassword)
     output = [rpcurl, rpcauth]
     print(output)
