@@ -148,8 +148,8 @@ def main():
     for i, coin in enumerate(config):
         if coin == 'DEFAULT':
             continue
-        print(coin, config)
-        rpc_params = get_coin_rpc(coin)
+        print(coin)
+        rpc_params = get_coin_rpc(coin, config)
         rpcurl = rpc_params[0]
         rpcauth = rpc_params[1]
         # define utxo size to filter by
