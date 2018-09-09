@@ -136,7 +136,6 @@ def get_coin_rpc(coin, config):
 def main():
     now = str(datetime.datetime.utcnow())
     print("\nStarting at " + now + ' (UTC)')
-
     # read configuration file
     config = configparser.ConfigParser()
     path = os.path.dirname(sys.argv[0])
@@ -145,7 +144,6 @@ def main():
     path += '/recharge.ini'
     print("Reading configuration from " + path + "\n")
     config.read(path)
-
     # iterate through list of coins
     for i, coin in enumerate(config):
         if coin == 'DEFAULT':
