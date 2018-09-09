@@ -95,8 +95,7 @@ def get_coin_rpc(coin, config):
         elif coin == 'GAME':
             coin_config_file = str(ac_dir + '/gamecredits.conf')
         else:
-            coin_config_file = str(
-            ac_dir + '/' + coin + '/' + coin + '.conf')
+            coin_config_file = str(ac_dir + '/' + coin + '/' + coin + '.conf')
     except:
         pass
     # read credentials from our recharge.ini file, if defined
@@ -212,8 +211,7 @@ def main():
                         break
                     except:
                         print(
-                            "Could not split funds into " +
-                            str(n_utxos_needed))
+                            "Could not split funds into", str(n_utxos_needed))
                 print("I tried all possible amounts.")
                 try:
                     consolidate(rpcurl, rpcauth)
